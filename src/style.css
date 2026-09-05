@@ -1,0 +1,45 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  font-family: 'Google Sans Flex', 'Google Sans', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Vuetify's outlined variant defaults to `border-color: currentColor`, which
+   renders near-black on cards with no explicit color prop. Use the theme's
+   soft "outline" token instead so outlined cards get a light, subtle border. */
+.v-card--variant-outlined {
+  border-color: rgb(var(--v-theme-outline)) !important;
+  background-color: rgb(var(--v-theme-surface));
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06) !important;
+}
+
+/* Banner hero dipakai di semua halaman publik (Katalog, Tentang Kami, Kontak,
+   Artikel, Aktivitas Kami) — satu sumber gambar & overlay yang sama supaya konsisten. */
+.hero-banner {
+  background:
+    linear-gradient(rgba(8, 10, 14, 0.6), rgba(8, 10, 14, 0.7)),
+    url('/hero-bg.jpg') center / cover no-repeat;
+}
+
+/* Chrome/Edge/Safari menimpa background field yang di-autofill dengan warna
+   birunya sendiri (pakai !important, tidak bisa ditimpa langsung lewat
+   background-color). Trik box-shadow inset ini "menutupi" warna itu dengan
+   warna surface kita sendiri, supaya field autofill tetap terlihat rapi. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 1000px rgb(var(--v-theme-surface)) inset !important;
+  -webkit-text-fill-color: rgb(var(--v-theme-on-surface)) !important;
+  caret-color: rgb(var(--v-theme-on-surface));
+  transition: background-color 5000s ease-in-out 0s;
+}

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProductsStore } from '@/stores/products'
 import { useBatchesStore } from '@/stores/batches'
@@ -37,6 +37,16 @@ async function load(slug) {
     }
     product.value = found
     batches.value = await batchesStore.fetchActiveByProduct(found.id)
+
+    const targetBatchCode = route.query.batch
+    if (targetBatchCode) {
+      const target = batches.value.find((b) => b.batchCode === targetBatchCode)
+      if (target) {
+        selectedBatch.value = target
+        await nextTick()
+        document.getElementById('batch-produksi')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
   } catch {
     notFound.value = true
   } finally {
@@ -210,7 +220,7 @@ watch(() => route.params.slug, (slug) => load(slug))
 
         <v-divider class="my-10" />
 
-        <h2 class="text-h5 font-weight-bold mb-5">Batch Produksi Tersedia</h2>
+        <h2 id="batch-produksi" class="text-h5 font-weight-bold mb-5">Batch Produksi Tersedia</h2>
         <v-alert v-if="!batches.length" type="info" variant="tonal" rounded="xl">
           Belum ada batch produksi aktif untuk produk ini.
         </v-alert>

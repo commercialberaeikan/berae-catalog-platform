@@ -5,6 +5,7 @@ import { generateBatchQrDataUrl, batchPublicUrl, downloadDataUrl } from '@/utils
 const props = defineProps({
   batchCode: { type: String, required: true },
   productName: { type: String, default: '' },
+  productSlug: { type: String, default: '' },
   packSizeGrams: { type: Number, default: null },
   productionDate: { type: String, default: '' },
   expiryDate: { type: String, default: '' },
@@ -25,11 +26,11 @@ const productionDateDisplay = computed(() => fmtDateShort(props.productionDate))
 const expiryDateDisplay = computed(() => fmtDateShort(props.expiryDate))
 
 async function generate() {
-  qrDataUrl.value = await generateBatchQrDataUrl(props.batchCode)
+  qrDataUrl.value = await generateBatchQrDataUrl(props.batchCode, props.productSlug)
 }
 
 onMounted(generate)
-watch(() => props.batchCode, generate)
+watch(() => [props.batchCode, props.productSlug], generate)
 
 function download() {
   downloadDataUrl(qrDataUrl.value, `qr-${props.batchCode}.png`)
@@ -84,7 +85,7 @@ function printLabel() {
       </div>
       <img v-if="qrDataUrl" :src="qrDataUrl" alt="QR Code" style="width: 180px; height: 180px; margin: 0 auto" />
     </div>
-    <div class="text-caption text-medium-emphasis mt-2 mb-4">{{ batchPublicUrl(batchCode) }}</div>
+    <div class="text-caption text-medium-emphasis mt-2 mb-4">{{ batchPublicUrl(batchCode, productSlug) }}</div>
     <div class="d-flex justify-center ga-2">
       <v-btn color="primary" prepend-icon="mdi-download" @click="download">Download PNG</v-btn>
       <v-btn variant="tonal" prepend-icon="mdi-printer" @click="printLabel">Cetak Label</v-btn>

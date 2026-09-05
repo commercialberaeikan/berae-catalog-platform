@@ -47,6 +47,7 @@ onMounted(async () => {
       <QRCodeGenerator
         :batch-code="batch.batchCode"
         :product-name="batch.productSnapshot?.name"
+        :product-slug="batch.productSnapshot?.slug"
         :pack-size-grams="product?.packSizeGrams"
         :production-date="batch.productionDate"
         :expiry-date="batch.expiryDate"

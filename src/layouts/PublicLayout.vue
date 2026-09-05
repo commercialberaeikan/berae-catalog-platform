@@ -26,6 +26,17 @@ function navigate(item) {
 <template>
   <v-app-bar color="surface" elevation="0" density="comfortable" class="border-b">
     <v-container class="nav-grid">
+      <div class="nav-hamburger d-md-none">
+        <v-menu location="bottom start">
+          <template #activator="{ props }">
+            <v-btn v-bind="props" icon="mdi-menu" variant="text" />
+          </template>
+          <v-list>
+            <v-list-item v-for="item in navItems" :key="item.label" :title="item.label" @click="navigate(item)" />
+          </v-list>
+        </v-menu>
+      </div>
+
       <div class="nav-logo" @click="navigate({ to: { name: 'catalog-home' } })">
         <img src="/logo-berae.png" alt="PT Berae Segara Nusantara" height="32" />
       </div>
@@ -44,17 +55,10 @@ function navigate(item) {
       </nav>
 
       <div class="nav-right">
-        <v-menu location="bottom end">
-          <template #activator="{ props }">
-            <v-btn v-bind="props" icon="mdi-menu" variant="text" class="d-md-none" />
-          </template>
-          <v-list>
-            <v-list-item v-for="item in navItems" :key="item.label" :title="item.label" @click="navigate(item)" />
-          </v-list>
-        </v-menu>
-        <v-btn variant="outlined" rounded="pill" prepend-icon="mdi-login" :to="{ name: 'admin-login' }">
+        <v-btn class="d-none d-md-inline-flex" variant="outlined" rounded="pill" prepend-icon="mdi-login" :to="{ name: 'admin-login' }">
           Login
         </v-btn>
+        <v-btn class="d-md-none" icon="mdi-login" variant="outlined" size="small" :to="{ name: 'admin-login' }" />
       </div>
     </v-container>
   </v-app-bar>
@@ -103,20 +107,36 @@ function navigate(item) {
 .nav-grid {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: 'logo center right';
+  align-items: center;
+}
+.nav-hamburger {
+  grid-area: hamburger;
   align-items: center;
 }
 .nav-logo {
+  grid-area: logo;
   cursor: pointer;
   justify-self: start;
 }
 .nav-center {
+  grid-area: center;
   justify-self: center;
   gap: 4px;
 }
 .nav-right {
+  grid-area: right;
   justify-self: end;
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 959.98px) {
+  .nav-grid {
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-areas: 'hamburger logo . right';
+    column-gap: 4px;
+  }
 }
 .nav-link {
   background: none;

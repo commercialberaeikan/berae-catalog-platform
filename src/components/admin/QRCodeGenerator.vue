@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
-import { generateBatchQrDataUrl, batchPublicUrl, downloadDataUrl } from '@/utils/qrcode'
+import { generateBatchQrDataUrl, batchPublicUrl, downloadDataUrl, renderLabelToDataUrl } from '@/utils/qrcode'
 
 const props = defineProps({
   batchCode: { type: String, required: true },
@@ -32,8 +32,22 @@ async function generate() {
 onMounted(generate)
 watch(() => [props.batchCode, props.productSlug], generate)
 
-function download() {
-  downloadDataUrl(qrDataUrl.value, `qr-${props.batchCode}.png`)
+const downloading = ref(false)
+
+async function download() {
+  downloading.value = true
+  try {
+    const labelDataUrl = await renderLabelToDataUrl({
+      productName: props.productName,
+      packSizeGrams: props.packSizeGrams,
+      productionDateDisplay: productionDateDisplay.value,
+      expiryDateDisplay: expiryDateDisplay.value,
+      qrDataUrl: qrDataUrl.value,
+    })
+    downloadDataUrl(labelDataUrl, `label-${props.batchCode}.png`)
+  } finally {
+    downloading.value = false
+  }
 }
 
 function printLabel() {
@@ -87,7 +101,7 @@ function printLabel() {
     </div>
     <div class="text-caption text-medium-emphasis mt-2 mb-4">{{ batchPublicUrl(batchCode, productSlug) }}</div>
     <div class="d-flex justify-center ga-2">
-      <v-btn color="primary" prepend-icon="mdi-download" @click="download">Download PNG</v-btn>
+      <v-btn color="primary" prepend-icon="mdi-download" :loading="downloading" @click="download">Download PNG</v-btn>
       <v-btn variant="tonal" prepend-icon="mdi-printer" @click="printLabel">Cetak Label</v-btn>
     </div>
   </v-card>

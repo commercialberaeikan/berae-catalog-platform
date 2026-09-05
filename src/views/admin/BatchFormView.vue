@@ -32,6 +32,9 @@ const form = reactive({
   batchCode: '',
   status: 'active',
   photos: [],
+  productionDate: '',
+  expiryDate: '',
+  sourceType: 'tangkapan',
   capture: emptyCapture(),
   processing: emptyProcessing(),
   aquaculture: emptyAquaculture(),
@@ -49,6 +52,9 @@ onMounted(async () => {
     } else {
       Object.assign(form, {
         ...existing,
+        productionDate: existing.productionDate ?? '',
+        expiryDate: existing.expiryDate ?? '',
+        sourceType: existing.sourceType ?? 'tangkapan',
         capture: { ...emptyCapture(), ...(existing.capture ?? {}) },
         processing: { ...emptyProcessing(), ...(existing.processing ?? {}) },
         aquaculture: { ...emptyAquaculture(), ...(existing.aquaculture ?? {}) },
@@ -83,11 +89,18 @@ async function handleSubmit() {
       batchCode: form.batchCode,
       status: form.status,
       photos: form.photos,
+      productionDate: form.productionDate,
+      expiryDate: form.expiryDate,
     }
     if (category.value === 'tangkapan') payload.capture = form.capture
     if (category.value === 'olahan') {
-      payload.capture = form.capture
+      payload.sourceType = form.sourceType
       payload.processing = form.processing
+      if (form.sourceType === 'budidaya') {
+        payload.aquaculture = form.aquaculture
+      } else {
+        payload.capture = form.capture
+      }
     }
     if (category.value === 'budidaya') payload.aquaculture = form.aquaculture
 
@@ -137,6 +150,12 @@ async function handleSubmit() {
           <v-col cols="12" md="2">
             <v-select v-model="form.status" :items="BATCH_STATUS" item-title="title" item-value="value" label="Status" />
           </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field v-model="form.productionDate" label="Tanggal Produksi" type="date" hint="Tampil di label QR code" persistent-hint />
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field v-model="form.expiryDate" label="Tanggal Kedaluwarsa" type="date" hint="Tampil di label QR code" persistent-hint />
+          </v-col>
         </v-row>
 
         <ImageUploader v-model="form.photos" label="Foto Batch (opsional, fallback ke foto produk)" />
@@ -145,7 +164,13 @@ async function handleSubmit() {
       <v-card v-if="category" variant="outlined" class="pa-6 mb-4">
         <div class="text-subtitle-1 font-weight-medium mb-4">Data Ketelusuran</div>
         <TraceabilityFormTangkapan v-if="category === 'tangkapan'" v-model="form.capture" />
-        <TraceabilityFormOlahan v-else-if="category === 'olahan'" :capture="form.capture" :processing="form.processing" />
+        <TraceabilityFormOlahan
+          v-else-if="category === 'olahan'"
+          v-model:source-type="form.sourceType"
+          :capture="form.capture"
+          :aquaculture="form.aquaculture"
+          :processing="form.processing"
+        />
         <TraceabilityFormBudidaya v-else-if="category === 'budidaya'" v-model="form.aquaculture" />
       </v-card>
       <v-alert v-else type="info" variant="tonal" class="mb-4">Pilih produk untuk menampilkan form ketelusuran sesuai kategorinya.</v-alert>

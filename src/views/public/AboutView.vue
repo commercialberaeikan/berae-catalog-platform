@@ -12,6 +12,17 @@ import { PRODUCT_CATEGORIES } from '@/utils/constants'
     </v-container>
   </div>
 
+  <v-container class="py-10 py-md-14">
+    <h2 class="text-h6 font-weight-bold mb-2 text-center">Alur Rantai Pasok Kami</h2>
+    <p class="text-body-2 text-medium-emphasis text-center mb-6 mx-auto" style="max-width: 640px">
+      Dari nelayan &amp; pembudidaya, melalui proses penanganan dan rantai dingin Berae, hingga sampai ke meja
+      pelanggan — setiap tahap tercatat dan tertelusuri.
+    </p>
+    <div class="supply-chain-scroll">
+      <v-img src="/supply-chain.jpg" rounded="xl" class="bg-surface-variant supply-chain-img" />
+    </div>
+  </v-container>
+
   <v-container class="py-10 py-md-14" style="max-width: 900px">
     <v-row>
       <v-col cols="12" md="6">
@@ -60,3 +71,19 @@ import { PRODUCT_CATEGORIES } from '@/utils/constants'
     </v-alert>
   </v-container>
 </template>
+
+<style scoped>
+.supply-chain-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.supply-chain-img {
+  min-width: 900px;
+  width: 100%;
+}
+@media (min-width: 960px) {
+  .supply-chain-img {
+    min-width: 0;
+  }
+}
+</style>

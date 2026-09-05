@@ -20,6 +20,7 @@ firebase-debug.log
 firestore-debug.log
 ui-debug.log
 .env.local
+serviceAccountKey.json
 
 # Materi mentah (foto/logo asli sebelum diproses) — bukan bagian source code
 file/

@@ -2,17 +2,23 @@
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useBatchesStore } from '@/stores/batches'
+import { useProductsStore } from '@/stores/products'
 import QRCodeGenerator from '@/components/admin/QRCodeGenerator.vue'
 
 const route = useRoute()
 const router = useRouter()
 const batchesStore = useBatchesStore()
+const productsStore = useProductsStore()
 
 const batch = ref(null)
+const product = ref(null)
 const loading = ref(true)
 
 onMounted(async () => {
   batch.value = await batchesStore.fetchById(route.params.id)
+  if (batch.value?.productId) {
+    product.value = await productsStore.fetchById(batch.value.productId)
+  }
   loading.value = false
 })
 </script>
@@ -38,7 +44,13 @@ onMounted(async () => {
         <div class="text-h6">{{ batch.batchCode }}</div>
       </v-card>
 
-      <QRCodeGenerator :batch-code="batch.batchCode" :product-name="batch.productSnapshot?.name" />
+      <QRCodeGenerator
+        :batch-code="batch.batchCode"
+        :product-name="batch.productSnapshot?.name"
+        :pack-size-grams="product?.packSizeGrams"
+        :production-date="batch.productionDate"
+        :expiry-date="batch.expiryDate"
+      />
 
       <v-alert type="info" variant="tonal" class="mt-4">
         Cetak QR code ini dan tempelkan pada kemasan produk. Saat customer men-scan, mereka akan langsung diarahkan ke halaman ketelusuran batch ini.

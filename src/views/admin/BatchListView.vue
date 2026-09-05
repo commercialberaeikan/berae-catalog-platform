@@ -36,9 +36,6 @@ async function handleDelete() {
   batchesStore.fetchAll()
 }
 
-function previewBatch(item) {
-  window.open(`${window.location.origin}/batch/${item.batchCode}`, '_blank')
-}
 </script>
 
 <template>
@@ -85,7 +82,6 @@ function previewBatch(item) {
         </template>
         <template #item.actions="{ item }">
           <div class="d-flex justify-end ga-1">
-            <v-btn icon="mdi-eye-outline" variant="outlined" size="small" title="Lihat sebagai customer" @click="previewBatch(item)" />
             <v-btn icon="mdi-qrcode" variant="outlined" size="small" @click="router.push({ name: 'admin-batch-qr', params: { id: item.id } })" />
             <v-btn icon="mdi-pencil-outline" variant="outlined" size="small" @click="router.push({ name: 'admin-batch-edit', params: { id: item.id } })" />
             <v-btn icon="mdi-delete-outline" variant="outlined" size="small" color="error" @click="confirmDelete = item" />

@@ -1,6 +1,6 @@
 export const PRODUCT_CATEGORIES = [
   { value: 'tangkapan', title: 'Produk Tangkapan', icon: 'mdi-sail-boat', color: '#1D4E89' },
-  { value: 'olahan', title: 'Produk Olahan', icon: 'mdi-food-drumstick', color: '#2F6F4E' },
+  { value: 'olahan', title: 'Produk Olahan', icon: 'mdi-fish', color: '#2F6F4E' },
   { value: 'budidaya', title: 'Produk Budidaya', icon: 'mdi-fishbowl', color: '#8A5A2B' },
 ]
 
@@ -35,6 +35,14 @@ export function emptyNutritionFacts() {
     carbs: null,
     others: [],
   }
+}
+
+export function emptySpecItem() {
+  return { label: '', value: '' }
+}
+
+export function emptyRecipe() {
+  return { title: '', imageUrl: '' }
 }
 
 export function emptyCapture() {

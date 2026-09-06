@@ -52,9 +52,17 @@ function sendMessage() {
       </v-card>
     </transition>
 
-    <v-btn class="wa-fab" rounded="pill" color="#25D366" size="large" prepend-icon="mdi-whatsapp" @click="toggleWidget">
+    <v-btn
+      class="wa-fab d-none d-sm-inline-flex"
+      rounded="pill"
+      color="#25D366"
+      size="large"
+      prepend-icon="mdi-whatsapp"
+      @click="toggleWidget"
+    >
       Pesan Sekarang
     </v-btn>
+    <v-btn class="wa-fab d-sm-none" rounded="pill" color="#25D366" size="large" icon="mdi-whatsapp" @click="toggleWidget" />
   </div>
 </template>
 

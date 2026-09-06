@@ -69,9 +69,17 @@ async function sendMessage() {
       </v-card>
     </transition>
 
-    <v-btn class="ai-fab" rounded="pill" color="#2554C7" size="large" prepend-icon="mdi-robot-happy" @click="toggleWidget">
+    <v-btn
+      class="ai-fab d-none d-sm-inline-flex"
+      rounded="pill"
+      color="#2554C7"
+      size="large"
+      prepend-icon="mdi-robot-happy"
+      @click="toggleWidget"
+    >
       Ber.AI
     </v-btn>
+    <v-btn class="ai-fab d-sm-none" rounded="pill" color="#2554C7" size="large" icon="mdi-robot-happy" @click="toggleWidget" />
   </div>
 </template>
 

@@ -1,5 +1,30 @@
 <script setup>
-import { PRODUCT_CATEGORIES } from '@/utils/constants'
+const QUALITY_ASSURANCE = [
+  {
+    title: 'Kesegaran',
+    icon: 'mdi-snowflake',
+    color: '#2554C7',
+    description: 'Jaminan rantai dingin (Cold Chain) yang terjaga dari penangkapan/budidaya, hingga tempat pengolahan dan pengiriman.',
+  },
+  {
+    title: 'Keamanan',
+    icon: 'mdi-shield-check',
+    color: '#2554C7',
+    description: 'Bebas dari bahan pengawet berbahaya (Formalin, Boraks, dll). Serta, dilengkapi dengan hasil uji laboratorium berkala (COA).',
+  },
+  {
+    title: 'Konsisten',
+    icon: 'mdi-truck-fast',
+    color: '#2554C7',
+    description: 'Komitmen untuk konsisten dalam memenuhi volume suplai harian/mingguan sesuai kebutuhan customer tanpa kendala.',
+  },
+  {
+    title: 'Standarisasi',
+    icon: 'mdi-certificate-outline',
+    color: '#2554C7',
+    description: 'Menekankan pada kepatuhan terhadap standar kebersihan, keamanan pangan, HACCP, Halal, SKP, CBIB & CPIB, serta proses Cold Chain Management yang ketat.',
+  },
+]
 </script>
 
 <template>
@@ -12,7 +37,8 @@ import { PRODUCT_CATEGORIES } from '@/utils/constants'
     </v-container>
   </div>
 
-  <v-container class="py-10 py-md-14">
+  <div class="bg-white">
+  <v-container class="pt-10 pt-md-14 pb-4">
     <h2 class="text-h6 font-weight-bold mb-2 text-center">Alur Rantai Pasok Kami</h2>
     <p class="text-body-2 text-medium-emphasis text-center mb-6 mx-auto" style="max-width: 640px">
       Dari nelayan &amp; pembudidaya, melalui proses penanganan dan rantai dingin Berae, hingga sampai ke meja
@@ -23,53 +49,56 @@ import { PRODUCT_CATEGORIES } from '@/utils/constants'
     </div>
   </v-container>
 
-  <v-container class="py-10 py-md-14" style="max-width: 900px">
-    <v-row>
-      <v-col cols="12" md="6">
-        <h2 class="text-h6 font-weight-bold mb-3">Siapa Kami</h2>
-        <p class="text-body-1 text-medium-emphasis">
-          PT Berae Segara Nusantara adalah perusahaan yang bergerak di bidang perikanan — mulai dari hasil tangkapan
-          nelayan, produk olahan, hingga hasil budidaya. Kami percaya bahwa customer berhak tahu asal-usul produk yang
-          mereka konsumsi, karena itu setiap produk kami dilengkapi jejak ketelusuran yang bisa dicek langsung lewat
-          QR code di kemasan.
-        </p>
-      </v-col>
-      <v-col cols="12" md="6">
-        <h2 class="text-h6 font-weight-bold mb-3">Komitmen Kami</h2>
-        <p class="text-body-1 text-medium-emphasis">
-          Kami berkomitmen menjaga kualitas dan kesegaran produk melalui penanganan rantai dingin yang tepat,
-          pengolahan yang higienis, serta praktik budidaya yang bertanggung jawab — didukung sertifikasi resmi dari
-          instansi terkait untuk setiap tahap prosesnya.
-        </p>
-      </v-col>
-    </v-row>
+  <v-container class="pt-4 pb-10 pb-md-14" style="max-width: 900px">
+    <h2 class="text-h6 font-weight-bold mb-3 text-center">Profil Kami</h2>
+    <p class="text-body-1 text-medium-emphasis text-center mx-auto" style="max-width: 720px">
+      PT Berae Segara Nusantara, berdiri di atas filosofi "Berae" (mengumpulkan), berkomitmen menjadi jembatan antara
+      hasil tangkapan laut terbaik nelayan ke tangan konsumen. Memastikan setiap produk perikanan memenuhi standar
+      mutu yang baik melalui penanganan ikan yang tepat, karena kami yakin bahwa makan
+      <strong>#BukanHanyaSoalKenyang</strong>, tetapi juga bergizi. Karena dengan penanganan ikan yang baik akan
+      membuat gizi ikan tetap terjaga dan optimal.
+    </p>
+  </v-container>
 
-    <v-divider class="my-10" />
-
-    <h2 class="text-h6 font-weight-bold mb-6 text-center">Kategori Produk Kami</h2>
+  <v-container class="py-10 py-md-14">
+    <h2 class="text-h6 font-weight-bold mb-2 text-center">Jaminan Kualitas</h2>
+    <p class="text-body-2 text-medium-emphasis text-center mb-8 mx-auto" style="max-width: 640px">
+      Empat pilar yang kami jaga di setiap tahap, dari laut/kolam hingga ke tangan Anda.
+    </p>
     <v-row>
-      <v-col v-for="c in PRODUCT_CATEGORIES" :key="c.value" cols="12" md="4">
-        <v-card variant="outlined" class="pa-6 h-100 text-center">
-          <v-avatar :color="c.color" variant="tonal" size="56" class="mb-4">
-            <v-icon :icon="c.icon" size="28" :color="c.color" />
+      <v-col v-for="q in QUALITY_ASSURANCE" :key="q.title" cols="12" sm="6" md="3">
+        <v-card variant="outlined" rounded="xl" class="quality-card pa-6 h-100 text-center" :style="{ borderTopColor: q.color }">
+          <v-avatar :color="q.color" variant="tonal" size="64" class="mb-4">
+            <v-icon :icon="q.icon" size="32" :color="q.color" />
           </v-avatar>
-          <div class="text-subtitle-1 font-weight-bold mb-2">{{ c.title }}</div>
-          <p class="text-body-2 text-medium-emphasis mb-0">
-            <span v-if="c.value === 'tangkapan'">Ikan segar hasil tangkapan nelayan lokal, ditangani dengan rantai dingin sejak di atas kapal.</span>
-            <span v-else-if="c.value === 'olahan'">Produk olahan higienis dari bahan baku pilihan, diproses dan dikemas untuk menjaga kesegaran.</span>
-            <span v-else>Hasil budidaya kolam dengan pakan terkontrol dan praktik budidaya yang bertanggung jawab.</span>
-          </p>
+          <div class="text-subtitle-1 font-weight-bold mb-2">{{ q.title }}</div>
+          <p class="text-body-2 text-medium-emphasis mb-0">{{ q.description }}</p>
         </v-card>
       </v-col>
     </v-row>
+  </v-container>
 
-    <v-divider class="my-10" />
+  <v-container class="py-10 py-md-14">
+    <h2 class="text-h6 font-weight-bold mb-2 text-center">Sertifikasi Kami</h2>
+    <p class="text-body-2 text-medium-emphasis text-center mb-8 mx-auto" style="max-width: 640px">
+      Setiap produk kami didukung sertifikasi resmi yang menjamin standar mutu, keamanan, dan kehalalan.
+    </p>
+    <div class="cert-logos-row">
+      <img src="/cert-halal-indonesia.png" alt="Sertifikasi Halal Indonesia" class="cert-logo" />
+      <img src="/cert-haccp.png" alt="Sertifikasi HACCP" class="cert-logo" />
+      <img src="/cert-skp.png" alt="Sertifikasi SKP" class="cert-logo" />
+      <img src="/cert-cbib.png" alt="Sertifikasi CBIB - Cara Budidaya Ikan Yang Baik" class="cert-logo" />
+      <img src="/cert-cpib.png" alt="Sertifikasi CPIB - Cara Pembenihan Ikan Yang Baik" class="cert-logo" />
+    </div>
+  </v-container>
 
+  <v-container class="pb-10 pb-md-14" style="max-width: 900px">
     <v-alert type="info" variant="tonal" rounded="xl">
       Ingin tahu asal produk yang Anda beli? Scan QR code di kemasan, atau
       <router-link :to="{ name: 'catalog-home' }" class="font-weight-bold">jelajahi katalog produk kami</router-link>.
     </v-alert>
   </v-container>
+  </div>
 </template>
 
 <style scoped>
@@ -85,5 +114,27 @@ import { PRODUCT_CATEGORIES } from '@/utils/constants'
   .supply-chain-img {
     min-width: 0;
   }
+}
+.quality-card {
+  border-top-width: 4px !important;
+  border-top-style: solid !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.quality-card:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(-3px);
+}
+.cert-logos-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 32px 40px;
+}
+.cert-logo {
+  height: 80px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
 }
 </style>

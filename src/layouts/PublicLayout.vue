@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTheme } from 'vuetify'
+import WhatsAppWidget from '@/components/public/WhatsAppWidget.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -101,6 +102,8 @@ function navigate(item) {
       </div>
     </v-container>
   </v-footer>
+
+  <WhatsAppWidget />
 </template>
 
 <style scoped>

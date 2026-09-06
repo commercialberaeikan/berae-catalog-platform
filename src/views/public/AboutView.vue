@@ -49,7 +49,7 @@ const QUALITY_ASSURANCE = [
     </div>
   </v-container>
 
-  <v-container class="pt-4 pb-10 pb-md-14" style="max-width: 900px">
+  <v-container class="pt-4 pb-4" style="max-width: 900px">
     <h2 class="text-h6 font-weight-bold mb-3 text-center">Profil Kami</h2>
     <p class="text-body-1 text-medium-emphasis text-center mx-auto" style="max-width: 720px">
       PT Berae Segara Nusantara, berdiri di atas filosofi "Berae" (mengumpulkan), berkomitmen menjadi jembatan antara
@@ -60,7 +60,7 @@ const QUALITY_ASSURANCE = [
     </p>
   </v-container>
 
-  <v-container class="py-10 py-md-14">
+  <v-container class="pt-4 pb-4">
     <h2 class="text-h6 font-weight-bold mb-2 text-center">Jaminan Kualitas</h2>
     <p class="text-body-2 text-medium-emphasis text-center mb-8 mx-auto" style="max-width: 640px">
       Empat pilar yang kami jaga di setiap tahap, dari laut/kolam hingga ke tangan Anda.
@@ -78,7 +78,7 @@ const QUALITY_ASSURANCE = [
     </v-row>
   </v-container>
 
-  <v-container class="py-10 py-md-14">
+  <v-container class="pt-4 pb-4">
     <h2 class="text-h6 font-weight-bold mb-2 text-center">Sertifikasi Kami</h2>
     <p class="text-body-2 text-medium-emphasis text-center mb-8 mx-auto" style="max-width: 640px">
       Setiap produk kami didukung sertifikasi resmi yang menjamin standar mutu, keamanan, dan kehalalan.
@@ -92,7 +92,7 @@ const QUALITY_ASSURANCE = [
     </div>
   </v-container>
 
-  <v-container class="pb-10 pb-md-14" style="max-width: 900px">
+  <v-container class="pt-4 pb-10 pb-md-14" style="max-width: 900px">
     <v-alert type="info" variant="tonal" rounded="xl">
       Ingin tahu asal produk yang Anda beli? Scan QR code di kemasan, atau
       <router-link :to="{ name: 'catalog-home' }" class="font-weight-bold">jelajahi katalog produk kami</router-link>.

@@ -89,7 +89,7 @@ function scrollToTop() {
             rounded="xl"
             class="mb-1"
             :active="!category"
-            color="primary"
+            color="#2554C7"
             @click="selectCategory(null)"
           >
             <template #prepend><v-icon icon="mdi-view-grid-outline" size="22" /></template>
@@ -104,7 +104,7 @@ function scrollToTop() {
             rounded="xl"
             class="mb-1"
             :active="category === c.value"
-            color="primary"
+            color="#2554C7"
             @click="selectCategory(c.value)"
           >
             <template #prepend><v-icon :icon="c.icon" size="22" /></template>

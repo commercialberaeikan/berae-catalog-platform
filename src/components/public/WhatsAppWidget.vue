@@ -60,10 +60,6 @@ function sendMessage() {
 
 <style scoped>
 .wa-widget {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: flex-end;

@@ -3,6 +3,7 @@ import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTheme } from 'vuetify'
 import WhatsAppWidget from '@/components/public/WhatsAppWidget.vue'
+import BerAiWidget from '@/components/public/BerAiWidget.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -103,7 +104,10 @@ function navigate(item) {
     </v-container>
   </v-footer>
 
-  <WhatsAppWidget />
+  <div class="floating-widgets">
+    <BerAiWidget />
+    <WhatsAppWidget />
+  </div>
 </template>
 
 <style scoped>
@@ -168,5 +172,21 @@ function navigate(item) {
 }
 .footer-link:hover {
   text-decoration: underline;
+}
+.floating-widgets {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+@media (max-width: 599.98px) {
+  .floating-widgets {
+    right: 16px;
+    bottom: 16px;
+    gap: 8px;
+  }
 }
 </style>

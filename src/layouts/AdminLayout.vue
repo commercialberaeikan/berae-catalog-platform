@@ -45,7 +45,15 @@ async function handleLogout() {
 
     <div v-if="!rail" class="nav-section-label px-4 pt-4 pb-1">Menu Utama</div>
     <v-list nav density="comfortable" class="pa-2">
-      <v-tooltip v-for="item in navItems" :key="item.title" :text="item.title" location="end" :disabled="!rail">
+      <v-tooltip
+        v-for="item in navItems"
+        :key="item.title"
+        :text="item.title"
+        location="end"
+        :offset="12"
+        :disabled="!rail"
+        content-class="admin-nav-tooltip"
+      >
         <template #activator="{ props: tooltipProps }">
           <v-list-item
             v-bind="tooltipProps"
@@ -63,7 +71,7 @@ async function handleLogout() {
     <v-divider class="mx-2" />
 
     <v-list nav density="comfortable" class="pa-2">
-      <v-tooltip :text="previewItem.title" location="end" :disabled="!rail">
+      <v-tooltip :text="previewItem.title" location="end" :offset="12" :disabled="!rail" content-class="admin-nav-tooltip">
         <template #activator="{ props: tooltipProps }">
           <v-list-item
             v-bind="tooltipProps"
@@ -210,5 +218,13 @@ async function handleLogout() {
 }
 .account-trigger:hover {
   background: rgb(var(--v-theme-primary-container));
+}
+:deep(.admin-nav-tooltip) {
+  background: #1e2430 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
 }
 </style>
